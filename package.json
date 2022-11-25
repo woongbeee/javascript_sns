@@ -6,7 +6,6 @@
   "scripts": {
     "test": "test",
     "start": "node app.js",
-    "postinstall": "npm run build"
   },
   "author": "woongbee",
   "license": "ISC",
