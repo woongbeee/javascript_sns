@@ -1,11 +1,11 @@
-import express from "express";
+﻿import express from "express";
 import { isLoggedIn } from "./middleware.js";
 import multer from "multer";
 import path from "path";
 import { createApolloFetch } from "apollo-fetch";
 const router = express.Router();
 const fetch = createApolloFetch({
-    uri: 'http://localhost:5000/graphql'
+    uri: 'https://woongsns.herokuapp.com/graphql'
 });
 const upload = multer({
     storage: multer.diskStorage({
@@ -19,13 +19,13 @@ const upload = multer({
     }),
     limits: { fileSize: 11048576 },
 });
-//������ ���� ���ε�
+
 router.post('/profile', upload.single('img'), async (req, res) => {
     if (req.file) {
         res.json(`/img/${req.file.filename}`);
     }
 });
-//�Խñ� ���� ���ε�, �ִ� 5���� ���� ���ε�
+
 router.post('/img', upload.array('img', 5), async (req, res) => {
     let urlArr = Array.from(req.files);
     let url = new Array();
@@ -35,7 +35,7 @@ router.post('/img', upload.array('img', 5), async (req, res) => {
     res.json(url);
 });
 const upload2 = multer();
-//�Խñ� �ø���
+
 router.post('/', isLoggedIn, upload2.none(), async (req, res) => {
     const { _id, nickname } = req.user;
     if (req.body.text === '' && req.body.url == null) {
@@ -76,7 +76,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res) => {
         }
     }
 });
-//��� �ޱ�
+
 router.post("/comment", isLoggedIn, async (req, res) => {
     const { _id } = req.user;
     try {
@@ -104,7 +104,7 @@ router.post("/comment", isLoggedIn, async (req, res) => {
         console.log("comment failed to be saved", err);
     }
 });
-//�Խñ� �����ϱ�
+
 router.post('/modify', isLoggedIn, async (req, res) => {
     console.log("post router", req.body);
     try {
@@ -147,7 +147,7 @@ router.post('/modify', isLoggedIn, async (req, res) => {
         console.log(err);
     }
 });
-//���ƿ� ������
+
 router.post('/like', isLoggedIn, async (req, res) => {
     const { _id } = req.user;
     try {
@@ -167,9 +167,6 @@ router.post('/like', isLoggedIn, async (req, res) => {
             }
         })
             .then((result) => {
-            console.log("like result", result.data.like);
-            console.log("like result", result.data);
-            console.log("like result", result);
             res.send(result.data.like);
         });
     }
@@ -177,7 +174,7 @@ router.post('/like', isLoggedIn, async (req, res) => {
         console.log(err);
     }
 });
-//���ƿ� ���
+
 router.post('/unlike', isLoggedIn, async (req, res) => {
     const { _id } = req.user;
     try {
@@ -197,7 +194,6 @@ router.post('/unlike', isLoggedIn, async (req, res) => {
             }
         }).
             then((result) => {
-            console.log('resolver unlike', result.data);
             res.send(result.data.unlike);
         });
     }

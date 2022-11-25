@@ -1,13 +1,11 @@
 {
   "name": "sns_tsc",
   "version": "1.0.0",
-  "description": "sns service with typescript",
-  "main": "app.ts",
+  "description": "sns service with javascript",
+  "main": "app.js",
   "scripts": {
     "test": "test",
-    "start": "nodemon --exec ts-node app.ts",
-    "dev": "nodemon --watch \"*.ts\" --exec \"ts-node\" app.ts",
-    "build": "tsc",
+    "start": "node app.js",
     "postinstall": "npm run build"
   },
   "author": "woongbee",

@@ -3,7 +3,7 @@ import { isLoggedIn } from "./middleware.js";
 import { createApolloFetch } from "apollo-fetch";
 const router = express.Router();
 const fetch = createApolloFetch({
-    uri: 'http://localhost:5000/graphql'
+    uri: 'https://woongsns.herokuapp.com/graphql'
 });
 router.post("/post", isLoggedIn, async (req, res) => {
     try {

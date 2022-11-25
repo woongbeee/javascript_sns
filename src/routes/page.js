@@ -1,15 +1,15 @@
-import express from "express";
+﻿import express from "express";
 import { isLoggedIn, isNotLoggedIn } from "./middleware.js";
 import { createApolloFetch } from "apollo-fetch";
 const router = express.Router();
 const fetch = createApolloFetch({
-    uri: 'http://localhost:5000/graphql'
+    uri: 'https://woongsns.herokuapp.com/graphql'
 });
 router.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
-//모든 게시글 가져오기
+
 router.get('/', (req, res, next) => {
     try {
         fetch({
@@ -52,7 +52,7 @@ router.get('/', (req, res, next) => {
         next(err);
     }
 });
-//특정 게시글 가져오기
+
 router.get('/getpost', async (req, res) => {
     try {
         fetch({
@@ -84,7 +84,7 @@ router.get('/getpost', async (req, res) => {
         console.log("post router", err);
     }
 });
-//사용자 피드 모아보기
+
 router.get('/getfeed', async (req, res) => {
     try {
         fetch({
@@ -115,15 +115,15 @@ router.get('/getfeed', async (req, res) => {
         console.log(err);
     }
 });
-//회원 가입 페이지 
+
 router.get('/join', isNotLoggedIn, async (req, res) => {
     res.render('join');
 });
-//사용자 정보 페이지
+
 router.get('/profile', isLoggedIn, async (req, res) => {
     res.render('profile');
 });
-//비밀번호 변경 && 회원탈퇴 페이지
+
 router.get('/password', isLoggedIn, async (req, res) => {
     let { keyword } = req.query;
     if (keyword === 'change') {

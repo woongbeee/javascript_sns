@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { createApolloFetch } from "apollo-fetch";
 const LocalStrategy = passportLocal.Strategy;
 const fetch = createApolloFetch({
-    uri: 'http://localhost:5000/graphql'
+    uri: 'https://woongsns.herokuapp.com/graphql'
 });
 const local = () => {
     passport.use(new LocalStrategy({

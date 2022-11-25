@@ -1,12 +1,12 @@
-import express from "express";
+﻿import express from "express";
 import { isLoggedIn } from "./middleware.js";
 import { createApolloFetch } from "apollo-fetch";
 import bcrypt from "bcrypt";
 const router = express.Router();
 const fetch = createApolloFetch({
-    uri: 'http://localhost:5000/graphql'
+    uri: 'https://woongsns.herokuapp.com/graphql'
 });
-//�̸��� �ߺ��˻�
+
 router.get('/email', async (req, res) => {
     try {
         fetch({
@@ -27,7 +27,7 @@ router.get('/email', async (req, res) => {
         console.log(err);
     }
 });
-//�г��� �ߺ��˻�
+
 router.get('/nickname', async (req, res) => {
     try {
         fetch({
@@ -48,7 +48,7 @@ router.get('/nickname', async (req, res) => {
         console.log(err);
     }
 });
-//��й�ȣ ��ġ�ϴ��� �˻�
+
 router.post('/checkpassword', isLoggedIn, async (req, res) => {
     const { _id } = req.user;
     try {
@@ -76,7 +76,7 @@ router.post('/checkpassword', isLoggedIn, async (req, res) => {
         console.log('failed', err);
     }
 });
-//����� ������ ������Ʈ
+
 router.post('/update', isLoggedIn, async (req, res) => {
     const { _id } = req.user;
     try {
@@ -102,7 +102,7 @@ router.post('/update', isLoggedIn, async (req, res) => {
         console.log("Update has been failed", err);
     }
 });
-//��й�ȣ ����
+
 router.post('/password', isLoggedIn, async (req, res) => {
     const { _id } = req.user;
     const { newPassword } = req.body;
@@ -132,7 +132,7 @@ router.post('/password', isLoggedIn, async (req, res) => {
         res.render('profile', { message: "Server error! Please try again a moment later." });
     }
 });
-//ȸ�� Ż��
+
 router.post('/deleteaccount', isLoggedIn, async (req, res, next) => {
     const { _id } = req.user;
     try {
@@ -164,7 +164,7 @@ router.post('/deleteaccount', isLoggedIn, async (req, res, next) => {
         res.render('error');
     }
 });
-//�ȷο��ϱ�
+
 router.post('/follow', isLoggedIn, async (req, res) => {
     const { _id } = req.user;
     try {
@@ -189,7 +189,7 @@ router.post('/follow', isLoggedIn, async (req, res) => {
         res.render('error');
     }
 });
-//���ȷο��ϱ�
+
 router.post('/unfollow', isLoggedIn, async (req, res) => {
     const { _id } = req.user;
     try {
@@ -214,7 +214,7 @@ router.post('/unfollow', isLoggedIn, async (req, res) => {
         res.render('error');
     }
 });
-//�ȷ��� ��� ��������
+
 router.get('/getfollowing', isLoggedIn, async (req, res) => {
     try {
         fetch({
@@ -237,7 +237,7 @@ router.get('/getfollowing', isLoggedIn, async (req, res) => {
         res.render('error');
     }
 });
-//�ȷο� ��� ��������
+
 router.get('/getfollower', isLoggedIn, async (req, res) => {
     try {
         fetch({
@@ -253,7 +253,6 @@ router.get('/getfollower', isLoggedIn, async (req, res) => {
             }
         })
             .then((result) => {
-            console.log('follower', result.data.getFollower);
             res.render('followers', { title: 'sns', followings: result.data.getFollower });
         });
     }

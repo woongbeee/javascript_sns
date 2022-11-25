@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { createApolloFetch } from "apollo-fetch";
 const router = express.Router();
 const fetch = createApolloFetch({
-    uri: 'http://localhost:5000/graphql'
+    uri: 'https://woongsns.herokuapp.com/graphql'
 });
 router.post('/join', isNotLoggedIn, async (req, res) => {
     const { email, nickname, password } = req.body;

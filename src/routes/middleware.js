@@ -1,4 +1,4 @@
-export function isLoggedIn(req, res, next) {
+﻿export function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         next();
     }

@@ -2,7 +2,7 @@ import passport from "passport";
 import local from './localStrategy.js';
 import { createApolloFetch } from "apollo-fetch";
 const fetch = createApolloFetch({
-    uri: 'http://localhost:5000/graphql'
+    uri: 'https://woongsns.herokuapp.com/graphql'
 });
 const serializeUser = () => {
     passport.serializeUser((user, done) => {
